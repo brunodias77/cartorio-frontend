@@ -88,7 +88,7 @@ const ToastItem = ({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
 
         const timer = setTimeout(() => {
             onRemove(toast.id);
-        }, 4000);
+        }, 5000);
         return () => clearTimeout(timer);
     }, [toast.id, toast.persistent, onRemove]);
 
@@ -101,7 +101,7 @@ const ToastItem = ({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
         <div
             role="alert"
             style={toastAnimation}
-            className="group relative pointer-events-auto flex w-full items-start gap-3 overflow-hidden rounded-lg border p-4 shadow-lg bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-950 dark:text-zinc-50"
+            className="group relative pointer-events-auto flex w-full items-start gap-3 overflow-hidden rounded-lg border p-4 shadow-lg bg-white border-zinc-200 text-zinc-950"
         >
             {/* Ícone baseado no tipo */}
             {toast.type !== 'default' && (
@@ -112,19 +112,19 @@ const ToastItem = ({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
 
             <div className="flex-1 grid gap-1">
                 {toast.title && (
-                    <div className="text-sm font-semibold leading-none tracking-tight">
+                    <div className="text-sm font-semibold leading-none tracking-tight text-[#0a0a0a]">
                         {toast.title}
                     </div>
                 )}
                 {toast.description && (
-                    <div className="text-sm opacity-90 text-zinc-500 dark:text-zinc-400">
+                    <div className="text-sm opacity-90 text-[#3f3f3f]">
                         {toast.description}
                     </div>
                 )}
                 {toast.action && (
                     <button
                         onClick={handleActionClick}
-                        className="mt-2 inline-flex h-8 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-xs font-medium shadow-sm transition-colors hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:border-zinc-800 dark:hover:bg-zinc-800 dark:focus:ring-zinc-300"
+                        className="mt-2 inline-flex h-8 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-xs font-medium shadow-sm transition-colors hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50"
                     >
                         {toast.action.label}
                     </button>
@@ -134,7 +134,7 @@ const ToastItem = ({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
             {/* Botão de Fechar */}
             <button
                 onClick={() => onRemove(toast.id)}
-                className="absolute right-2 top-2 rounded-md p-1 text-zinc-950/50 opacity-0 transition-opacity hover:text-zinc-950 focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 dark:text-zinc-50/50 dark:hover:text-zinc-50"
+                className="absolute right-2 top-2 rounded-md p-1 text-zinc-950/50 opacity-0 transition-opacity hover:text-zinc-950 focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100"
             >
                 {Icons.close}
             </button>

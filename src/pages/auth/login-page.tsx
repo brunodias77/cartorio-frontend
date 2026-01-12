@@ -11,14 +11,15 @@ export const LoginPage = () => {
 
             {/* Lado Direito - Imagem e Estilo */}
             <div className="hidden lg:flex w-1/2 relative bg-slate-900">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/30 to-purple-600/30 mix-blend-overlay z-10" />
+                {/* <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/30 to-purple-600/30 mix-blend-overlay z-10" /> */}
+                <div className="absolute inset-0 mix-blend-overlay z-10" />
                 <img
-                    src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                    src="https://images.unsplash.com/photo-1583521214690-73421a1829a9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="Office Workspace"
                     className="absolute inset-0 w-full h-full object-cover opacity-60"
                 />
                 <div className="relative z-20 flex flex-col justify-end p-16 text-white h-full w-full">
-                    <div className="mb-8">
+                    {/* <div className="mb-8">
                         <div className="flex gap-1 mb-4">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <svg key={star} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
@@ -33,9 +34,9 @@ export const LoginPage = () => {
                             <p className="font-semibold text-lg">Sofia Andrade</p>
                             <p className="text-indigo-200">Gerente de Produto, TechFlow</p>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="flex justify-between items-end border-t border-white/20 pt-8">
-                        <p className="text-sm text-indigo-200">© 2024 Bolt Inc. Todos os direitos reservados.</p>
+                        <p className="text-sm text-indigo-200">© 2026 @diasdev_  Todos os direitos reservados.</p>
                     </div>
                 </div>
             </div>
