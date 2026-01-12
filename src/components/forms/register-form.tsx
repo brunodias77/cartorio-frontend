@@ -30,9 +30,36 @@ export const RegisterForm = () => {
             await AuthService.register(registerData);
             toast.success('Conta criada com sucesso!', 'Faça login para continuar.');
             navigate('/login');
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Verifique os dados informados.';
-            toast.error('Falha no cadastro', errorMessage);
+        } catch (error: unknown) {
+            // Trata erros de validação do backend no formato RFC 7807 (Problem Details)
+            if (
+                error &&
+                typeof error === 'object' &&
+                'response' in error &&
+                error.response &&
+                typeof error.response === 'object' &&
+                'data' in error.response &&
+                error.response.data &&
+                typeof error.response.data === 'object' &&
+                'errors' in error.response.data
+            ) {
+                const responseData = error.response.data as { errors: Record<string, string[]> };
+                const errors = responseData.errors;
+
+                // Extrai e exibe cada mensagem de erro de validação
+                for (const field in errors) {
+                    const messages = errors[field];
+                    if (Array.isArray(messages)) {
+                        for (const message of messages) {
+                            toast.error('Erro de validação', message);
+                        }
+                    }
+                }
+            } else {
+                // Fallback para outros tipos de erro
+                const errorMessage = error instanceof Error ? error.message : 'Verifique os dados informados.';
+                toast.error('Falha no cadastro', errorMessage);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -41,13 +68,6 @@ export const RegisterForm = () => {
     return (
         <div className="w-full max-w-md space-y-8">
             <div className="text-center lg:text-left">
-                <div className="flex justify-center lg:justify-start mb-6">
-                    <div className="h-12 w-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
-                        </svg>
-                    </div>
-                </div>
                 <h1 className="text-3xl font-bold tracking-tight text-slate-900">Crie sua conta</h1>
                 <p className="mt-2 text-slate-500">Comece sua jornada gratuitamente hoje.</p>
             </div>
@@ -93,8 +113,9 @@ export const RegisterForm = () => {
                         }
                     />
                     <p className="text-xs text-slate-500">
-                        A senha deve ter pelo menos 8 caracteres
+                        A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.
                     </p>
+
                 </div>
 
                 <div className="flex items-start">
@@ -104,12 +125,12 @@ export const RegisterForm = () => {
                             name="terms"
                             type="checkbox"
                             required
-                            className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500/20 cursor-pointer"
+                            className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500/20 cursor-pointer"
                         />
                     </div>
                     <div className="ml-2 text-sm">
                         <label htmlFor="terms" className="text-slate-500 cursor-pointer select-none">
-                            Eu concordo com os <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Termos de Serviço</a> e <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Política de Privacidade</a>
+                            Eu concordo com os <a href="#" className="font-semibold text-blue-600 hover:text-blue-500">Termos de Serviço</a> e <a href="#" className="font-semibold text-blue-600 hover:text-blue-500">Política de Privacidade</a>
                         </label>
                     </div>
                 </div>
@@ -123,7 +144,7 @@ export const RegisterForm = () => {
                     )}
                 </Button>
             </form>
-
+            {/* 
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-slate-200" />
@@ -146,11 +167,11 @@ export const RegisterForm = () => {
                 <SocialButton icon={Github}>
                     GitHub
                 </SocialButton>
-            </div>
+            </div> */}
 
             <p className="text-center text-sm text-slate-500">
                 Já tem uma conta?{' '}
-                <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors">
+                <Link to="/login" className="font-semibold text-blue-600 hover:text-blue-500 transition-colors">
                     Fazer login
                 </Link>
             </p>
