@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import { Input } from "../common/Input";
 import { Button } from "../common/button";
 import { ArrowRight, Github, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
-import { SocialButton } from "../common/social-button";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth-service";
 import type { RegisterUserRequest } from "../../types/auth";
